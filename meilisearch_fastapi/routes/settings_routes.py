@@ -5,7 +5,7 @@ from meilisearch_python_async.models.task import TaskInfo
 
 from meilisearch_fastapi._client import meilisearch_client
 from meilisearch_fastapi._config import MeiliSearchConfig, get_config
-from meilisearch_fastapi.models.settings import MeiliSearchIndexSettings
+from meilisearch_fastapi.models.settings import MeilisearchIndexSettings
 
 router = APIRouter()
 
@@ -33,7 +33,7 @@ async def delete_settings(
 
 @router.patch("/", response_model=TaskInfo, tags=["Meilisearch Settings"])
 async def update_settings(
-    update_settings: MeiliSearchIndexSettings, client: Client = Depends(meilisearch_client)
+    update_settings: MeilisearchIndexSettings, client: Client = Depends(meilisearch_client)
 ) -> TaskInfo:
     index = client.index(update_settings.uid)
 
