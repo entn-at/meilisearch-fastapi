@@ -99,11 +99,10 @@ async def delete_distinct_attribute(
     return await index.reset_distinct_attribute()
 
 
-@router.delete("/delete-if-exists/{uid}", status_code=204, tags=["Meilisearch Index"])
-async def delete_if_exists(uid: str, client: Client = Depends(meilisearch_client)) -> int:
+@router.delete("/delete-if-exists/{uid}", status_code=status.HTTP_204_NO_CONTENT, tags=["Meilisearch Index"])
+async def delete_if_exists(uid: str, client: Client = Depends(meilisearch_client)):
     index = client.index(uid)
     await index.delete_if_exists()
-    return status.HTTP_204_NO_CONTENT
 
 
 @router.delete("/{uid}", response_model=TaskInfo, tags=["Meilisearch Index"])
