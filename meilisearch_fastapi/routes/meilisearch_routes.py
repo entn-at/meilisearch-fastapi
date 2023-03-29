@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from meilisearch_python_async import Client
 from meilisearch_python_async.errors import InvalidRestriction
 from meilisearch_python_async.models.client import ClientStats, Key, KeyCreate, KeySearch, KeyUpdate
@@ -39,9 +39,9 @@ async def create_key(key: KeyCreate, client: Client = Depends(meilisearch_client
     return await client.create_key(key)
 
 
-@router.delete("/keys/{key}", status_code=204, tags=["MeiliSearch"])
+@router.delete("/keys/{key}", status_code=status.HTTP_204_NO_CONTENT, tags=["MeiliSearch"])
 async def delete_key(key: str, client: Client = Depends(meilisearch_client)) -> int:
-    return await client.delete_key(key)
+    await client.delete_key(key)
 
 
 @router.get("/keys", response_model=KeySearch, tags=["MeiliSearch"])
