@@ -40,7 +40,7 @@ async def create_key(key: KeyCreate, client: Client = Depends(meilisearch_client
 
 
 @router.delete("/keys/{key}", status_code=status.HTTP_204_NO_CONTENT, tags=["MeiliSearch"])
-async def delete_key(key: str, client: Client = Depends(meilisearch_client)) -> int:
+async def delete_key(key: str, client: Client = Depends(meilisearch_client)):
     await client.delete_key(key)
 
 
